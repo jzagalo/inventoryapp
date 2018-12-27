@@ -83,7 +83,7 @@ class CrudComponent extends Component {
         ));
 
         return (
-         <div className="App">
+         <div id="content">
              <Header as='h3' content={this.state.title} />
               <form ref="myForm" className="ui form">
                  <Form.Field inline>

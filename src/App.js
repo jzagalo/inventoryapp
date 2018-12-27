@@ -5,6 +5,7 @@ import store from './store';
 import './App.css';
 import { Provider } from 'react-redux';
 import CrudComponent from './components/CrudComponent'
+import Sidebar from './components/Sidebar'
 import 'semantic-ui-css/semantic.min.css';
 
 
@@ -12,9 +13,8 @@ class App extends Component {
   render() {
     return (
         <Provider store={store}>
-          <div className="App ui container">
-            {/*<PostForm/>
-            <Posts />*/}
+          <div className="App" id="container">
+            <Sidebar/>
             <CrudComponent />
           </div>
         </Provider>
