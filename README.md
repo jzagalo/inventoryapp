@@ -1,6 +1,4 @@
-Sales Inventory and POS Terminal App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# React JS Sales Inventory and POS Terminal App
 
 ## Available Scripts
 
