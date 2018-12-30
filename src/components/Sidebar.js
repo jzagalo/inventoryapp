@@ -1,20 +1,35 @@
-import React, { Component } from 'react';
-import { Icon } from 'semantic-ui-react';
+import React, { Component } from 'react'
+import { Icon } from 'semantic-ui-react'
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import CrudComponent from './CrudComponent'
+import overviewComponent from './overviewComponent'
 
 class Sidebar extends Component {
 
     render(){
         return (
-            <nav>
-                <ul>
-                    <li>
-                        <a href='#'> <Icon name="list" />  </a>
-                    </li>
-                    <li>
-                      <a href='#'><Icon name="edit" /> </a>
-                    </li>
-                </ul>
-            </nav>
+            <Router>
+                <div  id="container">   
+                <nav>
+                    <ul>
+                        <li>
+                            <Link to="/"> 
+                                <Icon name="list" />  
+                            </Link>
+                        </li>
+                        <li>
+                          <Link to='/overview'>
+                            <Icon name="edit" /> 
+                          </Link>
+                        </li>
+                    </ul>
+                </nav>
+                <div id="content">
+                    <Route exact path="/"  component={CrudComponent}/>
+                    <Route  path="/overview"  component={overviewComponent}/>
+                </div>
+                </div>
+            </Router>
         );
     }
 }
