@@ -25,7 +25,7 @@ class Sidebar extends Component {
                     </ul>
                 </nav>
                 <div id="content">
-                    <Route exact path="/"  component={CrudComponent}/>
+                    <Route exact path=""  component={CrudComponent}/>
                     <Route  path="/overview"  component={overviewComponent}/>
                 </div>
                 </div>
