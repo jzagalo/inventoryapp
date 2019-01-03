@@ -6,12 +6,18 @@ import AddProduct from './AddProduct'
 const products = [
 {
   name: 'iPad',
-  price: 200
+  price: 200,
+  quantity: 1,
+  category: 'electronics'
 },
 {
   name: 'iPhone',
-  price: 650
+  price: 650,
+  quantity: 5,
+  category: 'electronics'
 }];
+
+
 
 localStorage.setItem('products', JSON.stringify(products));
 class CrudComponent extends Component {
@@ -36,11 +42,13 @@ class CrudComponent extends Component {
        return this.state.products;          
     }
 
-    onAdd(name, price) {
+    onAdd(name, price, quantity, category) {
       const products = this.getProducts();
-      products.push({
+      products.unshift({
         name,
-        price
+        price,
+        quantity,
+        category
       });
 
       this.setState({ products });
@@ -55,14 +63,17 @@ class CrudComponent extends Component {
       this.setState({ products: filteredProduct });
     }
 
-    onEditSubmit(name, price, originalName) {
+    onEditSubmit(name, price, quantity, category, originalName) {
       let products = this.getProducts();
 
       products = products.map(product => {
         if(product.name === originalName){
            product.name = name;
            product.price = price;
+           product.quantity = quantity;
+           product.category = category
         }
+
         return product;
       });
 
