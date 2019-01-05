@@ -1,19 +1,17 @@
 import { combineReducers } from 'redux';
-import postReducer from './postReducer';
+import crudReducer from './crudReducer';
 
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-
-
-const postConfig = {
-    key: 'postConfig',
+const productConfig = {
+    key: 'products',
     storage,
-    whitelist: ['items', 'item']
+    whitelist: ['products']
 };
 
-const postPersist = persistReducer(postConfig, postReducer);
+const productPersist = persistReducer(productConfig, crudReducer);
 
 export default combineReducers({
-    posts:postPersist
+    products:productPersist
 })

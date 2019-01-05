@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
-import store from './store';
-//import Posts from './components/Posts';
-//import PostForm from './components/PostForm';
+import storeObj from './store';
+import { PersistGate } from 'redux-persist/integration/react'
 import './App.css';
 import { Provider } from 'react-redux';
 import Sidebar from './components/Sidebar'
-import 'semantic-ui-css/semantic.min.css'; 
+import 'semantic-ui-css/semantic.min.css';  
 
 
+let { persistor, store } = storeObj;
 class App extends Component {
   render() {
     return (
-        <Provider store={store}>               
-            <Sidebar/>         
+        <Provider store={store}> 
+         <PersistGate loading={null}  persistor={persistor}>              
+            <Sidebar/> 
+         </PersistGate>        
         </Provider>
     );
   }

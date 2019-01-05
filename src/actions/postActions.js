@@ -1,4 +1,4 @@
-import { FETCH_POSTS, NEW_POST } from "./types";
+import { GET_PRODUCTS, ADD_PRODUCT, DELETE_PRODUCT } from "./types";
 
 export const fetchPost = () => dispatch => {
     /*fetch('https://jsonplaceholder.typicode.com/posts')
@@ -11,7 +11,13 @@ export const fetchPost = () => dispatch => {
 
 
 
-export const createPost = postData => dispatch => {
+export function addProduct(product)  {	
 
+	return (dispatch) => {
+			dispatch({
+			type : ADD_PRODUCT,
+			payload: product
+		});
+	}
 
 };

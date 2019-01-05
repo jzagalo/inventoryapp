@@ -2,69 +2,50 @@ import React, { Component } from 'react';
 import { Form, Button, Header, Table } from 'semantic-ui-react';
 import ProductItem from './ProductItem'
 import AddProduct from './AddProduct'
-
-const products = [
-{
-  name: 'iPad',
-  price: 200,
-  quantity: 1,
-  category: 'electronics'
-},
-{
-  name: 'iPhone',
-  price: 650,
-  quantity: 5,
-  category: 'electronics'
-}];
+import { connect } from 'react-redux';
+ import {addProduct } from "../actions/postActions"
 
 
 
-localStorage.setItem('products', JSON.stringify(products));
 class CrudComponent extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-          products:  JSON.parse(localStorage.getItem('products'))
-        }
-
+       
         this.onDelete = this.onDelete.bind(this);
         this.onAdd = this.onAdd.bind(this);
         this.onEditSubmit = this.onEditSubmit.bind(this);
     }
 
     componentWillMount() {
-       const products = this.getProducts(); 
-       this.setState({ products });      
+       const products = this.props.products;     
     }    
 
     getProducts(){
-       return this.state.products;          
+       return this.props.products.products;          
     }
 
     onAdd(name, price, quantity, category) {
-      const products = this.getProducts();
-      products.unshift({
+     // const products = this.props.products.products;
+      this.props.addProduct({
         name,
         price,
         quantity,
         category
-      });
-
-      this.setState({ products });
+      })    
     }
     
     onDelete(name) {
-      const products = this.getProducts();
+      /*const products = this.getProducts();
       const filteredProduct = products.filter(product => {
          return product.name !== name;
       }); 
 
-      this.setState({ products: filteredProduct });
+      this.setState({ products: filteredProduct });*/
     }
 
     onEditSubmit(name, price, quantity, category, originalName) {
-      let products = this.getProducts();
+      /*let products = this.getProducts();
 
       products = products.map(product => {
         if(product.name === originalName){
@@ -77,7 +58,7 @@ class CrudComponent extends Component {
         return product;
       });
 
-      this.setState({ products });
+      this.setState({ products });*/
     }
    
 
@@ -87,7 +68,7 @@ class CrudComponent extends Component {
           <div>
            <AddProduct onAdd = {this.onAdd} />
             {
-              this.state.products.map(product => {           
+              this.props.products.products.map(product => {           
                 return( 
                   <ProductItem  
                   key={ product.name }
@@ -105,4 +86,8 @@ class CrudComponent extends Component {
 }
 
 
-export default CrudComponent;
+const mapStateToProps = state =>({
+   products: state.products
+});
+
+export default connect(mapStateToProps,{ addProduct })(CrudComponent);
