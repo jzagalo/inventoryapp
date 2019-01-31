@@ -18,7 +18,7 @@ class CrudComponent extends Component {
     }
 
     componentWillMount() {
-       const products = this.props.products;     
+      // const products = this.props.products;     
     }    
 
     getProducts(){

@@ -13,5 +13,5 @@ const productConfig = {
 const productPersist = persistReducer(productConfig, crudReducer);
 
 export default combineReducers({
-    products:productPersist
+    products: productPersist
 })
