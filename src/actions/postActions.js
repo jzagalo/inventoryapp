@@ -11,13 +11,21 @@ export const fetchPost = () => dispatch => {
 
 
 
-export function addProduct(product)  {	
-
+export function addProduct(product)  {
 	return (dispatch) => {
 			dispatch({
 			type : ADD_PRODUCT,
 			payload: product
 		});
 	}
+};
 
+export function deleteProduct(product)  {
+	console.log(product);
+	return (dispatch) => {
+			dispatch({
+			type : DELETE_PRODUCT,
+			payload: product
+		});
+	}
 };

@@ -1,4 +1,4 @@
-import {ADD_PRODUCT} from './../actions/types';
+import {ADD_PRODUCT, DELETE_PRODUCT } from './../actions/types';
 
 let initialState = {
   products: [
@@ -18,11 +18,21 @@ let initialState = {
 };
 
 export default function crudReducer(state=initialState, action){
+  let _state = { ...state, products: [ ...state.products ]};
+
 	 switch (action.type) {
-        case ADD_PRODUCT:
-        	let _state = { ...state, products: [ ...state.products ]};
+        case ADD_PRODUCT:        	  
             _state.products.unshift(action.payload);         
             return _state;
+
+        case DELETE_PRODUCT:
+           let filteredResult =  _state.products.filter(product => {            
+               return product.name !== action.payload;
+            });  
+
+            _state.products = filteredResult;
+
+            return _state;            
         default:
             return state;
     }
