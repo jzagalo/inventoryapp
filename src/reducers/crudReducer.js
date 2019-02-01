@@ -1,4 +1,4 @@
-import {ADD_PRODUCT, DELETE_PRODUCT } from './../actions/types';
+import {ADD_PRODUCT, DELETE_PRODUCT, ON_EDIT_SUBMIT } from './../actions/types';
 
 let initialState = {
   products: [
@@ -31,8 +31,23 @@ export default function crudReducer(state=initialState, action){
             });  
 
             _state.products = filteredResult;
+            return _state; 
 
-            return _state;            
+        case ON_EDIT_SUBMIT:
+            let {name, price, quantity, category, originalName} = action.payload; 
+            let editedResult =  _state.products.map (product => {            
+               if(product.name === originalName){
+                   product.name = name;
+                   product.price = price;
+                   product.quantity = quantity;
+                   product.category = category;
+               }
+               return product;
+            });  
+
+            _state.products = editedResult;
+            return _state;
+              
         default:
             return state;
     }

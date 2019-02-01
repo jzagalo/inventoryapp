@@ -3,7 +3,7 @@ import { Form, Button, Header, Table } from 'semantic-ui-react';
 import ProductItem from './ProductItem'
 import AddProduct from './AddProduct'
 import { connect } from 'react-redux';
-import {addProduct, deleteProduct } from "../actions/postActions"
+import {addProduct, deleteProduct, onEditSubmitProduct } from "../actions/postActions"
 
 
 
@@ -18,15 +18,9 @@ class CrudComponent extends Component {
     }
 
     componentWillMount() {
-      // const products = this.props.products;     
+         
     }    
-
-    getProducts(){
-       return this.props.products.products;          
-    }
-
-    onAdd(name, price, quantity, category) {
-     // const products = this.props.products.products;
+    onAdd(name, price, quantity, category) {     
       this.props.addProduct({
         name,
         price,
@@ -40,20 +34,12 @@ class CrudComponent extends Component {
     }
 
     onEditSubmit(name, price, quantity, category, originalName) {
-      let products = this.getProducts();
-
-      products = products.map(product => {
-        if(product.name === originalName){
-           product.name = name;
-           product.price = price;
-           product.quantity = quantity;
-           product.category = category;
-        }
-
-        return product;
-      });
-
-      this.setState({ products });
+      this.props.onEditSubmitProduct({ name,
+                                       price,
+                                       quantity,
+                                       category,
+                                       originalName
+                                     });
     }
    
 
@@ -85,4 +71,4 @@ const mapStateToProps = state =>({
    products: state.products
 });
 
-export default connect(mapStateToProps,{ addProduct, deleteProduct })(CrudComponent);
+export default connect(mapStateToProps,{ addProduct, deleteProduct, onEditSubmitProduct })(CrudComponent);

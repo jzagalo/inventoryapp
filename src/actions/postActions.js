@@ -1,4 +1,4 @@
-import { GET_PRODUCTS, ADD_PRODUCT, DELETE_PRODUCT } from "./types";
+import { ON_EDIT_SUBMIT, ADD_PRODUCT, DELETE_PRODUCT } from "./types";
 
 export const fetchPost = () => dispatch => {
     /*fetch('https://jsonplaceholder.typicode.com/posts')
@@ -26,6 +26,15 @@ export function deleteProduct(product)  {
 			dispatch({
 			type : DELETE_PRODUCT,
 			payload: product
+		});
+	}
+};
+
+export function onEditSubmitProduct(data)  {
+	return (dispatch) => {
+			dispatch({
+			type : ON_EDIT_SUBMIT,
+			payload: data
 		});
 	}
 };
