@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Form, Button, Header, Table } from 'semantic-ui-react';
 import ProductItem from './ProductItem'
 import AddProduct from './AddProduct'
+import SearchInput from './SearchInput';
 import { connect } from 'react-redux';
 import {addProduct, deleteProduct, onEditSubmitProduct } from "../actions/postActions"
 
@@ -15,11 +16,22 @@ class CrudComponent extends Component {
         this.onDelete = this.onDelete.bind(this);
         this.onAdd = this.onAdd.bind(this);
         this.onEditSubmit = this.onEditSubmit.bind(this);
+        this.handleUserInput = this.handleUserInput.bind(this);
+        this.state = {
+          searchTerm : ''
+        };
+       
     }
 
     componentWillMount() {
          
-    }    
+    } 
+
+    handleUserInput(soughtTerm){
+      this.setState({
+        searchTerm: soughtTerm
+      });
+    }   
     onAdd(name, price, quantity, category) {     
       this.props.addProduct({
         name,
@@ -44,18 +56,26 @@ class CrudComponent extends Component {
    
 
     render() {    
-     
+         
+         let filteredProducts = this.props.products.products.filter(product => {
+            return product.name.toLowerCase().indexOf(this.state.searchTerm.toLowerCase()) !== -1
+         });
+
          return(
           <div>
+           <SearchInput filteredText={this.state.searchTerm}
+            onUserInput={this.handleUserInput}  />
            <AddProduct onAdd = {this.onAdd} />
+
             {
-              this.props.products.products.map((product, index) => {           
+              filteredProducts.map((product, index) => {           
                 return( 
                   <ProductItem  
                   key={ product.name + index }
                   {...product } 
                   onDelete = {this.onDelete}
-                  onEditSubmit = {this.onEditSubmit }   />
+                  onEditSubmit = { this.onEditSubmit } 
+                  filteredText = { this.state.searchTerm }  />
                   
                 );
               })
